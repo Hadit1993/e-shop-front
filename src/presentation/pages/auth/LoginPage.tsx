@@ -1,13 +1,12 @@
-import { useState } from "react";
-
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import styles from "../../styles/styles";
+import useLogin from "../../../lib/hooks/pageHooks/auth/useLogin";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
-  const [invisible, setInvisible] = useState(true);
+  const { state, setState, handleInputChange, handleSubmit } = useLogin();
+  const { email, password, invisible } = state;
+
   return (
     <div>
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -18,7 +17,7 @@ const LoginPage = () => {
         </div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="email"
@@ -33,7 +32,7 @@ const LoginPage = () => {
                     autoComplete="email"
                     required
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={handleInputChange}
                     className="
                   appearance-none 
                   block w-full 
@@ -63,7 +62,7 @@ const LoginPage = () => {
                     name="password"
                     required
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={handleInputChange}
                     className="
                   appearance-none 
                   block w-full 
@@ -82,13 +81,13 @@ const LoginPage = () => {
                     <AiOutlineEye
                       className="absolute right-2 cursor-pointer top-2"
                       size={25}
-                      onClick={() => setInvisible(false)}
+                      onClick={() => setState({ ...state, invisible: false })}
                     />
                   ) : (
                     <AiOutlineEyeInvisible
                       className="absolute right-2 cursor-pointer top-2"
                       size={25}
-                      onClick={() => setInvisible(true)}
+                      onClick={() => setState({ ...state, invisible: true })}
                     />
                   )}
                 </div>

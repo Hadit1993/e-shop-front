@@ -18,7 +18,22 @@ export const authApi = createApi({
     activateAccount: builder.query<any, string>({
       query: (tokenId) => ({ url: `/activate/${tokenId}`, method: "GET" }),
     }),
+
+    login: builder.mutation<
+      { accessToken: string },
+      { email: string; password: string }
+    >({
+      query: (body) => ({
+        url: "/login",
+        method: "POST",
+        data: body,
+      }),
+    }),
   }),
 });
 
-export const { useRegisterMutation, useActivateAccountQuery } = authApi;
+export const {
+  useRegisterMutation,
+  useActivateAccountQuery,
+  useLoginMutation,
+} = authApi;
