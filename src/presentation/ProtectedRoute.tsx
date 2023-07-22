@@ -1,9 +1,11 @@
 import { FC, PropsWithChildren } from "react";
 import { Navigate } from "react-router-dom";
 
+type AuthSentivity = "auth-sensitive" | "no-auth-sensitive";
+
 interface ProtectedProps extends PropsWithChildren {
   hasUserAuthenticated?: boolean;
-  type: "auth-sensitive" | "no-auth-sensitive";
+  type: AuthSentivity;
 }
 
 const ProtectedElement: FC<ProtectedProps> = ({

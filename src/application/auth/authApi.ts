@@ -1,5 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { axiosBaseQuery } from "../../infrastructure/axiosConfig";
+import User from "../../infrastructure/dtos/User";
 
 export const authApi = createApi({
   reducerPath: "registerApi",
@@ -29,6 +30,10 @@ export const authApi = createApi({
         data: body,
       }),
     }),
+
+    getProfile: builder.query<User, void>({
+      query: () => ({ url: "/profile", method: "GET" }),
+    }),
   }),
 });
 
@@ -36,4 +41,5 @@ export const {
   useRegisterMutation,
   useActivateAccountQuery,
   useLoginMutation,
+  useGetProfileQuery,
 } = authApi;

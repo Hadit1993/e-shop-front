@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
+type AuthStatus = "Authenticated" | "Unauthenticated" | "unknown";
+
 export interface AuthState {
-  hasUserAuthenticated: boolean;
+  authStatus: AuthStatus;
 }
 
 const initialState: AuthState = {
-  hasUserAuthenticated: false,
+  authStatus: "unknown",
 };
 
 export const authSlice = createSlice({
@@ -14,7 +16,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     changeAuthStatus: (state, action: PayloadAction<boolean>) => {
-      state.hasUserAuthenticated = action.payload;
+      state.authStatus = action.payload ? "Authenticated" : "Unauthenticated";
     },
   },
 });
